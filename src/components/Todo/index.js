@@ -1,6 +1,6 @@
-import { Card } from './card';
-import { connect } from 'react-redux';
-import { add_item } from '../../redux/actions/todoAction';
+import { Todo } from "./Todo";
+import { connect } from "react-redux";
+import { add_item } from "../../redux/actions/todoAction";
 
 const mapStateToProps = (state) => ({});
 
