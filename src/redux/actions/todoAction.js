@@ -4,34 +4,45 @@ import {
   UPDATE_ITEM,
   GET_ITEM,
   GET_ITEMS,
-} from '../constants';
+} from "../constants";
 
-export const add_item = (text) => {
-  var fdata = new FormData();
-  fdata.append('text', text);
-
-  addItem('http://127.0.0.1:8000/todo/', fdata, text);
+export const add_item = async (text) => {
+  const items = await addItem("http://localhost:8000/todo/", text);
+  console.log(".catch()", items);
   return {
     type: ADD_ITEM,
-    text: text,
+    items: items,
   };
 };
 
-async function addItem(url, fdata, text) {
-  console.log(1111);
+async function addItem(url, text) {
+  console.log(text);
   try {
-    const response = await fetch('http://127.0.0.1:8000/todo/', {
-      mode: 'no-cors',
-      method: 'POST',
-      body: fdata,
+    const response = await fetch(url, {
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
-    // const result = await response.json();
-    // console.log(result);
+    const result = await response.json();
+    console.log("sad", result);
+    return result;
+  } catch (e) {
+    console.error("Ошибка:", e);
+  }
+}
+
+async function getItems() {
+  console.log(1111);
+  try {
+    const response = await fetch("localhost/todo/", {
+      mode: "no-cors",
+      method: "GET",
+    });
+    const result = await response.json();
+    console.log(result);
     // return text;
   } catch (e) {
-    console.error('Ошибка:', e);
+    console.error("Ошибка:", e);
   }
 }
